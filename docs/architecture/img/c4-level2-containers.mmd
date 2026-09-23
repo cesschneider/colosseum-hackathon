@@ -1,0 +1,25 @@
+flowchart TB
+    subgraph AWS["AWS (Dados & Compute)"]
+        S3["S3 Data Lake<br/>(Parquet particionado)"]
+        Glacier["S3 Glacier<br/>(arquivo frio)"]
+        Athena["Athena<br/>(query SQL)"]
+        Ingest["Lambda Ingestão<br/>(ETL)"]
+        API["Lambda API +<br/>API Gateway"]
+        Frontend["Dashboard<br/>(Next.js/Recharts)"]
+    end
+
+    subgraph Web3["Solana / Descentralizado"]
+        Chain["Solana Programs<br/>(provenance + token-gating)"]
+        Irys["Irys<br/>(datasets âncora)"]
+        Shdw["shdwDrive<br/>(mídia de usuário)"]
+    end
+
+    Ingest -->|"escreve Parquet"| S3
+    S3 -->|"lifecycle"| Glacier
+    S3 -->|"scaneia"| Athena
+    API -->|"query"| Athena
+    Frontend -->|"REST"| API
+
+    Ingest -->|"publica hash/proof"| Chain
+    S3 -->|"snapshot permanente"| Irys
+    Frontend -->|"upload mídia"| Shdw

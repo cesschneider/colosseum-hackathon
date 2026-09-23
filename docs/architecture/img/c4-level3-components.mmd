@@ -1,0 +1,22 @@
+flowchart LR
+    subgraph IngestLambda["Lambda Ingestão (por dataset)"]
+        Fetch["Fetcher<br/>(IBGE/ANP/WorldBank)"]
+        Parse["Parser<br/>(normalização)"]
+        Validate["Validator<br/>(schema + quality)"]
+        Write["Parquet Writer"]
+        Hash["Hash & Sign<br/>(provenance)"]
+    end
+
+    Fetch --> Parse --> Validate --> Write
+    Write --> S3["S3 Parquet"]
+    Validate --> Hash --> Chain["Solana on-chain"]
+
+    subgraph ApiLambda["Lambda API"]
+        Auth["JWT / Wallet Auth"]
+        Router["Router (datasetId, range)"]
+        Query["Athena Query Builder"]
+        Formatter["Response Formatter"]
+    end
+
+    Auth --> Router --> Query --> Formatter
+    Query --> Athena["Athena"]

@@ -1,0 +1,15 @@
+flowchart TB
+    subgraph Users["Pessoas / Atores"]
+        Consultor["Consultor / Analista<br/>(Marcelo)"]
+        Empresa["PME / Empresa<br/>(cliente final)"]
+        Admin["Admin do Time<br/>(Cesar)"]
+    end
+
+    Platform["Marketplace de Dados<br/>Públicos Micro (BR)<br/>[Sistema]"]
+    Solana["Rede Solana<br/>[Sistema Externo]"]
+
+    Consultor -->|"consulta dados micro (API/dashboard)"| Platform
+    Empresa -->|"assina plano / consome dados"| Platform
+    Admin -->|"gerencia datasets & ingestão"| Platform
+
+    Platform -->|"prova de integridade + token-gating"| Solana
