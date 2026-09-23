@@ -12,7 +12,7 @@
 
 | Solução | Modelo | Custo |
 |---------|--------|-------|
-| shdwDrive (mutable) | Recorrente | US$ 0,05 / GB / ano |
+| Walrus (blob) | Recorrente | US$ 0,023 / GB / mês (encoded 4,5× + 64MB/blob) |
 | Irys (permanente) | One-time | US$ 2,33 / GB |
 | Arweave (permanente) | One-time | ~US$ 36,5 / GB |
 | Filecoin cold | Recorrente | US$ 0,002–0,02 / GB / mês |
@@ -45,13 +45,13 @@
 
 | | AWS | Descentralizado | Vencedor |
 |---|---|---|---|
-| **Custo 1 TB / ano (acesso quente)** | S3 Standard: US$ 0,023 × 12 × 1024 = **US$ 282/ano** | shdwDrive: **US$ 51/ano** | 🏆 Descentralizado (5× mais barato) |
+| **Custo 1 TB / ano (acesso quente)** | S3 Standard: US$ 0,023 × 12 × 1024 = **US$ 282/ano** | Walrus: US$ 0,023 × 12 × (1024×4,5) = **US$ 1.272/ano** | 🏆 AWS (4,5× mais barato) |
 | **Custo 1 TB / ano (arquivo frio)** | Deep Archive: US$ 0,00099 × 12 × 1024 = **US$ 12/ano** | Filecoin cold: US$ 0,002 × 12 × 1024 = **US$ 25/ano** | 🏆 AWS (2× mais barato) |
 | **Query SQL ad-hoc** | Athena US$ 5/TB escaneado | Não existe nativamente | 🏆 AWS |
 | **Latência de leitura** | ms (S3 Standard) | gateway-dependente | 🏆 AWS (garantia de SLA) |
 | **Egresso** | US$ 0,09/GB | variável | ⚖️ Depende |
 
-**Conclusão:** para dados quentes com query SQL, AWS ganha por funcionalidade (Athena/Parquet). shdwDrive é mais barato no armazenamento bruto, mas perde em query + latência garantida.
+**Conclusão:** para dados quentes com query SQL, **AWS ganha com folga** (mais barato + Athena + SLA). Walrus só compensa quando o valor é descentralização/verificabilidade, não custo.
 
 ### Caso B — Datasets "âncora" permanentes (imutáveis, proof-of-existence)
 
@@ -77,11 +77,11 @@
 
 | | AWS | Descentralizado | Vencedor |
 |---|---|---|---|
-| **Custo 1 TB / ano (mutável)** | S3 Standard US$ 282/ano + egresso | shdwDrive US$ 51/ano | 🏆 Descentralizado (5×) |
-| **UX de integração Solana** | Não (precisa ponte) | ✅ Nativo (wallet Phantom) | 🏆 Descentralizado |
-| **SLA / suporte** | ✅ Garantido | ⚠️ Menor adoção | 🏆 AWS |
+| **Custo 1 TB / ano (mutável)** | S3 Standard US$ 282/ano + egresso | Walrus US$ 1.272/ano (encoded 4,5×) | 🏆 AWS (4,5×) |
+| **Verificabilidade/descentralização** | ❌ Centralizado | ✅ Verificável, tamper-proof | 🏆 Descentralizado |
+| **SLA / suporte** | ✅ Garantido | ✅ Cloud-level (Walrus) | ⚖️ Empate |
 
-**Conclusão:** mídia de usuário em app Solana-native → **shdwDrive** (custo + UX). Se a prioridade for SLA → S3.
+**Conclusão:** mídia de usuário → **S3 por custo**; **Walrus** quando o valor é verificabilidade/descentralização (ex.: prova de autenticidade do dataset para o cliente). O shdwDrive antigo (US$ 0,05/GB/ano) era mais barato, mas está abandonado.
 
 ### Caso E — Processamento / query / analytics (o "big data" do Marcelo)
 
@@ -99,12 +99,12 @@
 
 | Cenário | AWS | Descentralizado | Economia |
 |---------|-----|-----------------|----------|
-| 1 TB dados quentes / ano | US$ 282 | US$ 51 (shdwDrive) | 5× mais barato no descentralizado |
+| 1 TB dados quentes / ano | US$ 282 | US$ 1.272 (Walrus, encoded 4,5×) | AWS 4,5× mais barato |
 | 1 TB arquivo frio / ano | US$ 12 | US$ 25 (Filecoin) | 2× mais barato no AWS |
 | 1 GB permanente / para sempre | US$ 276 (100 anos) | US$ 2,33 (Irys) | 100× mais barato no descentralizado |
 | Query 1 TB escaneado | US$ 5 (Athena) | n/a | AWS único |
 
-**Leitura:** AWS é imbatível em **frio + query/processamento**; o descentralizado é imbatível em **permanência + custo de armazenamento quente + prova trustless**.
+**Leitura (corrigida):** AWS é imbatível em **custo de armazenamento (quente e frio) + query/processamento**. O descentralizado só ganha em **permanência one-time (Irys US$ 2,33/GB)** e **prova trustless** — o valor de blockchain aqui é *verificação*, não *custo*.
 
 ---
 

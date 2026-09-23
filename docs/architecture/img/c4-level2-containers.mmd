@@ -11,7 +11,7 @@ flowchart TB
     subgraph Web3["Solana / Descentralizado"]
         Chain["Solana Programs<br/>(provenance + token-gating)"]
         Irys["Irys<br/>(datasets âncora)"]
-        Shdw["shdwDrive<br/>(mídia de usuário)"]
+        Walrus["Walrus<br/>(blob verificável)"]
     end
 
     Ingest -->|"escreve Parquet"| S3
@@ -22,4 +22,4 @@ flowchart TB
 
     Ingest -->|"publica hash/proof"| Chain
     S3 -->|"snapshot permanente"| Irys
-    Frontend -->|"upload mídia"| Shdw
+    Frontend -->|"upload blob"| Walrus

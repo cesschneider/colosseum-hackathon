@@ -8,7 +8,7 @@
 Consolidar os resultados medidos em uma **matriz comparativa Solana × AWS** com recomendação por caso de uso.
 
 ## Critérios de Aceitação
-- [ ] Matriz: linhas = camadas (rent, compression, Irys, shdwDrive, S3×3); colunas = custo USD/GB, latência escrita, latência leitura, throughput, permanência.
+- [ ] Matriz: linhas = camadas (rent, compression, Irys, Walrus, S3×3); colunas = custo USD/GB, latência escrita, latência leitura, throughput, permanência.
 - [ ] Recomendação explícita por caso de uso (dados quentes, frios, âncora, provenance, mídia).
 - [ ] Publicar como `docs/research/BENCHMARK-RESULTS.md` + tabela CSV.
 - [ ] Atualizar `DECISAO-PLACEMENT-SOLANA-VS-AWS.md` com números reais (substituir estimativas).

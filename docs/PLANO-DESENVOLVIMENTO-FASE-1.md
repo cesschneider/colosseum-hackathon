@@ -9,7 +9,7 @@
 
 ## 1. Objetivo da Fase
 
-Validar empiricamente o custo e a performance de armazenamento na rede Solana (rent, state compression, Irys, shdwDrive) contra a baseline AWS S3, produzindo uma **matriz de benchmark** com números medidos que alimenta a decisão de placement do produto.
+Validar empiricamente o custo e a performance de armazenamento na rede Solana (rent, state compression, Irys, Walrus) contra a baseline AWS S3, produzindo uma **matriz de benchmark** com números medidos que alimenta a decisão de placement do produto.
 
 **Critério de done da fase:** `docs/research/BENCHMARK-RESULTS.md` com custo USD/GB + latência + throughput medidos em ≥ 4 camadas + recomendação por caso de uso.
 
@@ -25,7 +25,7 @@ Validar empiricamente o custo e a performance de armazenamento na rede Solana (r
 | 1.2 | Benchmark On-Chain (rent) | 1.1 | 0.5d | Benchmark |
 | 1.3 | Benchmark State Compression | 1.1 | 0.5d | Benchmark |
 | 1.4 | Benchmark Irys | 1.1 | 0.5d | Benchmark |
-| 1.5 | Benchmark shdwDrive | 1.1 | 1d | Benchmark |
+| 1.5 | Benchmark Walrus (blob) | 1.1 | 1d | Benchmark |
 | 1.6 | Baseline AWS S3 | 1.1, 1.7 | 0.5d | Benchmark |
 | 1.7 | Harness de Métricas | 1.1 | 0.5d | Infra |
 | 1.8 | Matriz Comparativa (relatório) | 1.2–1.7 | 0.5d | Entrega |
@@ -41,7 +41,7 @@ Validar empiricamente o custo e a performance de armazenamento na rede Solana (r
 - 1.7 deve sair ANTES dos benchmarks para todos emitirem métricas no mesmo schema.
 
 ### Fase B — Benchmarks (2 dias, PARALELO)
-- **1.2** (rent) ∥ **1.3** (compression) ∥ **1.4** (Irys) ∥ **1.5** (shdwDrive) — independentes entre si.
+- **1.2** (rent) ∥ **1.3** (compression) ∥ **1.4** (Irys) ∥ **1.5** (Walrus) — independentes entre si.
 - **1.6** (AWS baseline) pode rodar em paralelo também (não depende de Solana).
 
 ### Fase C — Consolidação (1 dia)
@@ -84,12 +84,12 @@ Validar empiricamente o custo e a performance de armazenamento na rede Solana (r
 - rent: lamports/byte efetivo → USD via preço SOL timestampado.
 - compression: custo total da árvore + por leaf, × depth/canopy.
 - Irys: USD/GB permanente + term.
-- shdwDrive: US$ 0,05/GiB/ano (verificar real).
+- Walrus: US$ 0,023/GB/mês (encoded 4,5× — verificar real).
 - S3: US$/GB/mês por classe (Standard/IA/Deep Archive).
 
 ### Performance
 - **Latência escrita** (ms): tempo até confirmação (Solana: ~400ms block time; S3: ms).
-- **Latência leitura** (ms): retrieval (S3 Glacier: 12-48h; Irys/shadow: gateway).
+- **Latência leitura** (ms): retrieval (S3 Glacier: 12-48h; Irys/Walrus: gateway).
 - **Throughput** (MB/s): upload/download.
 
 ### Qualidade
@@ -100,7 +100,7 @@ Validar empiricamente o custo e a performance de armazenamento na rede Solana (r
 ### Thresholds de validação
 | Métrica | Alvo | Nota |
 |---------|------|------|
-| Nº camadas medidas | ≥ 4 | rent, compression, Irys, shdwDrive, S3 |
+| Nº camadas medidas | ≥ 4 | rent, compression, Irys, Walrus, S3 |
 | Custo registrado em USD | 100% ops | com preço timestampado |
 | Latência medida | 100% ops | escrita + leitura |
 | Repro executável | 1 comando | `npm run bench` |
@@ -111,7 +111,7 @@ Validar empiricamente o custo e a performance de armazenamento na rede Solana (r
 
 | Risco | Mitigação |
 |-------|-----------|
-| SDK shdwDrive/Irys imaturo | Fallback CLI oficial |
+| SDK Walrus/Irys imaturo | Fallback CLI oficial |
 | Custo mainnet alto | Devnet p/ volume; mainnet 1-2 ops teto 0.1 SOL |
 | Preço SOL volátil | Registrar no instante + média móvel |
 | Rate limit RPC | Backoff exponencial + cache |

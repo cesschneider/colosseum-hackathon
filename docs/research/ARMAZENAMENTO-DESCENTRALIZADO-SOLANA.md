@@ -18,24 +18,11 @@ Na Ethereum, o padrão é **IPFS** (roteamento de conteúdo, gratuito) + camada 
 
 ## 2. Soluções Nativas do Ecossistema Solana
 
-### 2.1 shdwDrive / Shadow Drive (GenesysGo) — o "IPFS da Solana"
+### 2.1 ⚠️ shdwDrive / Shadow Drive (GenesysGo) — ABANDONADO
 
-Storage layer descentralizada construída **nativamente em Solana**, o análogo direto que o time procura.
+> **Status: projeto descontinuado.** Último release do `shadow-drive` (v1): ago/2023. `shdwDrive-v2-releases` (app Android): fev/2025 (8 stars, 0 issues). Docs oficiais: *"shdwDrive v1.5 is no longer maintained."* **NÃO usar para novos projetos.**
 
-| Aspecto | Detalhe |
-|---------|---------|
-| **Rede** | Solana (consenso próprio D.A.G.G.E.R. para replicação) |
-| **Token** | SHDW (pagamento em USDC para usuários) |
-| **Free tier** | 5 GB gratuito |
-| **Custo mutable** | **US$ 0,05 / GiB / ano** (~US$ 0,000274/GiB por epoch) |
-| **Modos** | Immutable (taxa única) e Mutable (recorrente) |
-| **Limite** | 1 TB por bucket (expansível) |
-| **Operadores** | Stake de SHDW como colateral (1 SHDW ≈ 51,2 MB; mínimo ~1.000 SHDW) |
-| **Revenue split** | 60–75% das taxas → operadores (USDC); resto → buyback SHDW |
-| **Adoção** | Recomendado como backend default por Helius e Triton (RPC providers) |
-
-**Prós:** integração nativa com wallets (Phantom/Solflare), programas e UX Solana; S3-like.
-**Contras:** adoção baixa fora do ecossistema Solana; herdou histórico de downtime da Solana; menos "permanente" que Arweave.
+**Substitutos ativos (ver seção 2.4):** Walrus (camada quente), Irys (permanente).
 
 ### 2.2 Armazenamento On-Chain Direto (Rent / Contas Solana)
 
@@ -97,7 +84,24 @@ Técnica nativa Solana para armazenar **dados de forma comprimida** — hashes e
 
 **Quando usar:** datasets on-chain programáveis, preço mais agressivo que Arweave, integração nativa com Solana (pagamento em SOL via wallet).
 
-### 3.3 Filecoin — storage marketplace (rental / cold storage)
+### 3.3 Walrus (Mysten Labs / Sui) — camada "quente" ativa (substituto do shdwDrive)
+
+> **Substituto recomendado do shdwDrive.** Projeto muito ativo (mainnet mar/2025, 450 TB, raise US$ 140M de Standard Crypto/a16z/Electric Capital, SDK atualizado ago/2026).
+
+| Aspecto | Detalhe |
+|---------|---------|
+| **Rede** | Sui (coordenation/governance) + nós de storage próprios |
+| **Modelo** | Blob storage com erasure coding (~4,5× encoded + 64 MB/blob) |
+| **Custo** | **US$ 0,023 / GB / mês** (fixo, denominado em USD, pago em WAL) |
+| **Permanência** | Term storage por epochs (1 epoch = 1 dia testnet / 2 semanas mainnet), extensível |
+| **Produtos** | Quilt (batch de arquivos pequenos), Seal (privacidade), MemWal (SDK memória p/ agentes) |
+| **Ecosystema** | 450 TB armazenados (superou Arweave), Team Liquid/Decrypt/Allium |
+
+**Quando usar:** dados quentes/mutáveis em volume, storage de blobs, memória de agentes. É cross-chain (não nativo Solana), mas é a alternativa madura e ativamente mantida ao shdwDrive.
+
+**Ressalva:** não é Solana-nativo (roda em Sui). Para integração 100% Solana, usar Irys (paga em SOL).
+
+### 3.4 Filecoin — storage marketplace (rental / cold storage)
 
 | Aspecto | Detalhe |
 |---------|---------|
@@ -129,14 +133,14 @@ Técnica nativa Solana para armazenar **dados de forma comprimida** — hashes e
 |---------|--------|--------------|-------------------|
 | **Solana rent (on-chain)** | Depósito reembolsável | ~696 lamports/byte (pós-redução) | inviável p/ big data |
 | **State Compression (cNFT)** | Hash on-chain | ~US$ 0,000005 / asset | escala massiva de ativos |
-| **shdwDrive (mutable)** | Recorrente | **US$ 0,05 / GB / ano** | ~US$ 50 / ano |
+| **Walrus (blob)** | Recorrente | **US$ 0,023 / GB / mês** (encoded 4,5×) | ~US$ 282 / TB / ano |
 | **Irys (permanente)** | One-time | **US$ 2,33 / GB** | ~US$ 2.382 |
 | **Arweave (permanente)** | One-time | ~US$ 36,5 / GB | ~US$ 37.362 |
 | **Filecoin (cold)** | Recorrente | US$ 0,002–0,02 / GB / mês | US$ 24–240 / ano |
 | **IPFS + Pinata** | Recorrente | US$ 0,15–0,50 / GB / mês | US$ 600–1.800 / ano |
 
 **Leitura de custo (ordem de grandeza por TB/ano):**
-- Mais barato recorrente: **shdwDrive (~US$ 50/TB/ano)** e **Filecoin cold (~US$ 24/TB/ano)**
+- Mais barato recorrente: **Filecoin cold (~US$ 24/TB/ano)**; Walrus custa ~US$ 282/TB/ano (encoded 4,5×) — no nível de S3 Standard.
 - Mais barato permanente: **Irys (~US$ 2,33/GB)**, depois Arweave (~US$ 36/GB)
 
 ---
@@ -153,7 +157,7 @@ O produto armazena datasets públicos (IPCA, ANP, commodities) com atualização
 
 3. **Datasets públicos "âncora" / permanentes** → **Irys** (US$ 2,33/GB one-time) como backup imutável e proof-of-existence, com wallet Solana.
 
-4. **Arquivos/mídia de usuários** (Passo 3, se houver) → **shdwDrive** (US$ 0,05/GB/ano) — nativo Solana, S3-like, free 5GB.
+4. **Arquivos/mídia de usuários** (Passo 3, se houver) → **S3** (custo, 4,5× mais barato) ou **Walrus** (quando o valor é verificabilidade/descentralização, ex. prova de autenticidade).
 
 **Racional:** big data não vai pra blockchain (custoso e lento); blockchain entra como **camada de verificação e monetização** (provenance, acesso token-gated, prova de que o dataset é autêntico), não como storage principal.
 

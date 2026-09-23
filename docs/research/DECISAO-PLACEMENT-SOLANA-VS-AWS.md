@@ -33,7 +33,7 @@ Regra de decisão em 3 perguntas:
 | 10 | Auth / identidade do usuário | Controle de acesso | **JWT (AWS)** no MVP → **Solana (wallet signature)** no Passo 3 | MVP simples; depois login via wallet = token-gating nativo |
 | 11 | Controle de acesso / token-gating a datasets | Monetização | **Solana (programs + SPL/NFT)** | Pagamento por acesso on-chain, sem intermediário |
 | 12 | Assinatura de planos (Free/Pro/Enterprise) | Monetização | **Solana (payment)** no Passo 3 | Trilha de pagamento transparente; prêmio pede Solana |
-| 13 | Mídia/arquivos de usuários (se houver upload) | Storage | **shdwDrive** (ou S3) | US$ 0,05/GB/ano + UX nativa Solana; S3 se priorizar SLA |
+| 13 | Mídia/arquivos de usuários (se houver upload) | Storage | **S3** (custo) ou **Walrus** (verificabilidade) | S3 é 4,5× mais barato; Walrus p/ prova de autenticidade |
 | 14 | Logs / monitoramento / alertas | Ops | **AWS CloudWatch + SNS** | Observabilidade; não há equivalente descentralizado maduro |
 | 15 | CI/CD | DevOps | **GitHub Actions + CDK** | Deploy IaC; já definido no Passo 2 |
 
@@ -59,7 +59,7 @@ Regra de decisão em 3 perguntas:
 │  [On-chain accounts]  hashes + provenance + PDA         │
 │  [State compression]  integridade em escala              │
 │  [Irys]  datasets âncora permanentes (proof-of-existence)│
-│  [shdwDrive]  mídia de usuário (opcional)                │
+│  [Walrus]  blob storage verificável (opcional)          │
 │  [Programs/SPL]  token-gating + pagamento por acesso     │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
@@ -81,7 +81,7 @@ Regra de decisão em 3 perguntas:
 ### Fase 3 — Monetização (token-gating)
 - **Login via wallet Solana** (substitui JWT).
 - **Pagamento por acesso** on-chain (SPL/USDC ou token próprio).
-- **shdwDrive** para mídia de usuário, se houver.
+- **Walrus** para blobs verificáveis (se valor = descentralização, não custo).
 
 ---
 
@@ -94,7 +94,7 @@ Regra de decisão em 3 perguntas:
 | **Permanência / imutabilidade** | Irys (on-chain proof) |
 | **Integridade / provenance** | Solana on-chain (hash) |
 | **Controle de acesso / pagamento** | Solana (token-gating) |
-| **Mídia de usuário** | shdwDrive (ou S3) |
+| **Mídia de usuário** | S3 (custo) ou Walrus (verificabilidade) |
 | **Ops / monitoramento** | AWS CloudWatch |
 
 ---

@@ -47,7 +47,7 @@ flowchart TB
     subgraph Web3["Solana / Descentralizado"]
         Chain["Solana Programs<br/>(provenance + token-gating)"]
         Irys["Irys<br/>(datasets âncora)"]
-        Shdw["shdwDrive<br/>(mídia de usuário)"]
+        Walrus["Walrus<br/>(blob verificável)"]
     end
 
     Ingest -->|"escreve Parquet"| S3
@@ -58,7 +58,7 @@ flowchart TB
 
     Ingest -->|"publica hash/proof"| Chain
     S3 -->|"snapshot permanente"| Irys
-    Frontend -->|"upload mídia"| Shdw
+    Frontend -->|"upload blob"| Walrus
 ```
 
 ---
@@ -121,7 +121,7 @@ sequenceDiagram
 - **Dados brutos & query** ficam na AWS (S3 + Athena) — ver `DECISAO-PLACEMENT-SOLANA-VS-AWS.md`.
 - **Solana** entra como camada de *provenance* (hash on-chain) e *monetização* (token-gating), não como storage de big data.
 - **Irys** guarda snapshots "âncora" permanentes (US$ 2,33/GB) para proof-of-existence.
-- **shdwDrive** é opcional (mídia de usuário, US$ 0,05/GB/ano).
+- **Walrus** é opcional (blob verificável, US$ 0,023/GB/mês — substitui o shdwDrive abandonado).
 
 ---
 

@@ -25,7 +25,7 @@ Validar, **empiricamente e com números**, quais camadas de armazenamento da red
 - Solana **on-chain (rent)**: escrever dados em contas, medir depósito/custo por byte, reclamar (close) e verificar reembolso.
 - Solana **state compression (Merkle/Bubblegum)**: comprimir dados em árvore, medir custo por asset/leaf.
 - **Irys**: armazenar snapshot de dataset (permanente e term), medir custo + prova de existência.
-- **shdwDrive**: armazenar dados mutáveis, medir custo/ano + latência.
+- **Walrus**: armazenar blob (mutável), medir custo/mês + latência + verificabilidade.
 - **AWS baseline**: S3 (Standard, IA, Glacier Deep Archive) para comparação 1:1.
 - **Harness de métricas**: coleta unificada de custo (SOL/USDC gasto, USD equivalente) e performance (latência, throughput, tamanho).
 
@@ -33,7 +33,7 @@ Validar, **empiricamente e com números**, quais camadas de armazenamento da red
 - Token-gating / pagamento por acesso (Fase 3).
 - Frontend/dashboard (Fase 2).
 - ETL completo dos datasets (já é o Passo 2 do MVP de dados, epics separados).
-- Arweave e Filecoin (documentados, mas fora do PoC ativo — foco em Solana + Irys + shdwDrive).
+- Arweave e Filecoin (documentados, mas fora do PoC ativo — foco em Solana + Irys + Walrus).
 
 ---
 
@@ -56,10 +56,10 @@ Validar, **empiricamente e com números**, quais camadas de armazenamento da red
 - **FR-010** — Registrar custo de armazenamento permanente (USD/GB) e term storage.
 - **FR-011** — Ler o dado de volta (retrieval) e verificar proof-of-existence.
 
-### Módulo D — shdwDrive
-- **FR-012** — Criar storage account e bucket (free 5GB + expansão).
-- **FR-013** — Fazer upload de dados mutáveis; medir custo (US$ 0,05/GiB/ano) e latência.
-- **FR-014** — Fazer download/leitura; medir latência e throughput.
+### Módulo D — Walrus (blob storage)
+- **FR-012** — Configurar client Walrus (testnet/mainnet) e wallet Sui.
+- **FR-013** — Fazer upload de blob mutável; medir custo (US$ 0,023/GB/mês, encoded 4,5×) e latência.
+- **FR-014** — Fazer download/leitura; medir latência e throughput; verificar encoded size real.
 
 ### Módulo E — AWS Baseline (comparação)
 - **FR-015** — Escrever o mesmo payload em S3 (Standard, IA, Glacier Deep Archive).
@@ -87,7 +87,7 @@ Validar, **empiricamente e com números**, quais camadas de armazenamento da red
 ## 5. Constraints (CON-*)
 
 - **CON-001** — Usar **devnet** Solana para a maior parte (custo zero real); 1-2 operações em mainnet apenas para custo real, com orçamento máximo de ~0.1 SOL.
-- **CON-002** — Stack de script: **TypeScript** (consistente com Passo 2 CDK) via `@solana/web3.js`, `@metaplex-foundation`, `@irys/sdk`, `@shadow-drive/sdk` (ou CLI oficial quando SDK imaturo).
+- **CON-002** — Stack de script: **TypeScript** (consistente com Passo 2 CDK) via `@solana/web3.js`, `@metaplex-foundation`, `@irys/sdk`, `@mysten/walrus` (ou CLI `walrus`).
 - **CON-003** — Preço SOL/USDC coletado de fonte confiável (CoinGecko/Binance API) no momento do benchmark.
 - **CON-004** — Sem deploy de infra AWS nova para o PoC (reuso do que já existe; baseline S3 pode ser local/scriptada).
 
@@ -101,7 +101,7 @@ Validar, **empiricamente e com números**, quais camadas de armazenamento da red
 | 1.2 | Como dev, quero medir custo de armazenar bytes on-chain (rent). | FR-002..005 com custo/byte registrado |
 | 1.3 | Como dev, quero medir custo de state compression (Merkle). | FR-006..008 |
 | 1.4 | Como dev, quero medir custo do Irys (permanente + term). | FR-009..011 |
-| 1.5 | Como dev, quero medir custo e latência do shdwDrive. | FR-012..014 |
+| 1.5 | Como dev, quero medir custo e latência do Walrus (blob). | FR-012..014 |
 | 1.6 | Como dev, quero uma baseline AWS S3 comparável. | FR-015..016 |
 | 1.7 | Como dev, quero um harness de métricas unificado. | FR-017..018 |
 | 1.8 | Como PO, quero a matriz de benchmark Solana × AWS. | FR-019 (relatório final) |
@@ -122,7 +122,7 @@ Validar, **empiricamente e com números**, quais camadas de armazenamento da red
 
 | Risco | Prob. | Impacto | Mitigação |
 |-------|-------|---------|-----------|
-| SDK shdwDrive/Irys imaturo | Média | Alto | Usar CLI oficial como fallback |
+| SDK Walrus/Irys imaturo | Média | Alto | Usar CLI oficial como fallback |
 | Custo mainnet variável | Alta | Médio | Devnet p/ volume; mainnet só 1-2 ops com teto de 0.1 SOL |
 | Rate limit de RPC | Baixa | Médio | Backoff exponencial + cache |
 | Preço SOL volátil | Alta | Médio | Registrar preço no instante + média móvel |
