@@ -1,0 +1,24 @@
+[package]
+name = "dataset-provenance"
+version = "0.1.0"
+description = "Programa de provenance de datasets (hash + metadados) na Solana"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "dataset_provenance"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+init-if-needed = ["anchor-lang/init-if-needed"]
+anchor-debug = []
+default = []
+
+[dependencies]
+anchor-lang = { version = "0.30.1", features = ["init-if-needed"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

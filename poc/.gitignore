@@ -1,0 +1,18 @@
+# Dependências
+node_modules/
+dist/
+coverage/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Rust / Anchor
+target/
+programs/**/target/
+
+# Build artifacts
+bench-results.csv.tmp
+*.log
+.deploy/

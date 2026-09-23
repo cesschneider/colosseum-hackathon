@@ -1,0 +1,52 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ts-tests:
+    name: TypeScript Tests & Coverage
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: poc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: poc/package-lock.json
+      - run: npm ci
+      - run: npm run test:coverage
+
+  rust-tests:
+    name: Rust (Anchor program) Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            poc/programs/dataset-provenance/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('poc/programs/dataset-provenance/Cargo.lock') }}
+      - name: Build program
+        working-directory: poc/programs/dataset-provenance
+        run: cargo build
+      - name: Run program tests
+        working-directory: poc/programs/dataset-provenance
+        run: cargo test
+      - name: Clippy (lint)
+        working-directory: poc/programs/dataset-provenance
+        run: cargo clippy -- -D warnings
+      - name: Format check
+        working-directory: poc/programs/dataset-provenance
+        run: cargo fmt --check
