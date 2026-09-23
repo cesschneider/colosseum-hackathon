@@ -11,6 +11,7 @@ coverage/
 # Rust / Anchor
 target/
 programs/**/target/
+test-ledger/
 
 # Build artifacts
 bench-results.csv.tmp

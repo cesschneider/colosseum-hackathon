@@ -1,0 +1,217 @@
+{
+  "generated_at": "2026-09-23T04:51:35.693Z",
+  "rpc": "http://localhost:8899",
+  "payer": "5vgEPFEkc3MF19rpExVfZnmfv6EYkATYWdxAJ6D8HYsE",
+  "sol_usd": 119.61,
+  "price_source": "coingecko",
+  "lamports_per_byte": 6960,
+  "rows": [
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 128,
+      "cost_sol": 0.00178176,
+      "cost_usd": 0.2131163136,
+      "latency_ms": 102,
+      "refunded_lamports": 0,
+      "net_cost_sol": 0.00178176,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 1024,
+      "cost_sol": 0.00801792,
+      "cost_usd": 0.9590234111999999,
+      "latency_ms": 439,
+      "refunded_lamports": 0,
+      "net_cost_sol": 0.00801792,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 10240,
+      "cost_sol": 0.07216128,
+      "cost_usd": 8.631210700799999,
+      "latency_ms": 417,
+      "refunded_lamports": 0,
+      "net_cost_sol": 0.07216128,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 102400,
+      "cost_sol": 0.71359488,
+      "cost_usd": 85.3530835968,
+      "latency_ms": 418,
+      "refunded_lamports": 0,
+      "net_cost_sol": 0.71359488,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 1048576,
+      "cost_sol": 7.29897984,
+      "cost_usd": 873.0309786624,
+      "latency_ms": 418,
+      "refunded_lamports": 0,
+      "net_cost_sol": 7.29897984,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-compression",
+      "operation": "write",
+      "payload_bytes": 32000,
+      "leaf_count": 1000,
+      "cost_sol": 0.44610816,
+      "cost_usd": 53.3589970176,
+      "cost_per_leaf_sol": 0.00044610816,
+      "latency_ms": 2,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-compression",
+      "operation": "write",
+      "payload_bytes": 320000,
+      "leaf_count": 10000,
+      "cost_sol": 4.45506816,
+      "cost_usd": 532.8707026175999,
+      "cost_per_leaf_sol": 0.00044550681599999996,
+      "latency_ms": 2,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-compression",
+      "operation": "write",
+      "payload_bytes": 3200000,
+      "leaf_count": 100000,
+      "cost_sol": 44.54466816,
+      "cost_usd": 5327.9877586176,
+      "cost_per_leaf_sol": 0.0004454466816,
+      "latency_ms": 2,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "solana-program",
+      "operation": "deploy",
+      "status": "não executado (bloqueado)",
+      "detail": "anchor build .so indisponivel; ver progress.json",
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "aws-s3",
+      "operation": "write",
+      "storage_class": "STANDARD",
+      "payload_bytes": 1048576,
+      "cost_per_month_usd": 0.0000224609375,
+      "cost_per_year_usd": 0.00026953125,
+      "latency_ms": 1514,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "aws-s3",
+      "operation": "write",
+      "storage_class": "STANDARD_IA",
+      "payload_bytes": 1048576,
+      "cost_per_month_usd": 0.00001220703125,
+      "cost_per_year_usd": 0.00014648437500000002,
+      "latency_ms": 220,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    },
+    {
+      "layer": "aws-s3",
+      "operation": "write",
+      "storage_class": "DEEP_ARCHIVE",
+      "payload_bytes": 1048576,
+      "cost_per_month_usd": 9.66796875e-7,
+      "cost_per_year_usd": 0.0000116015625,
+      "latency_ms": 234,
+      "timestamp": "2026-09-23T04:51:35.693Z"
+    }
+  ],
+  "metrics": [
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 128,
+      "cost_sol": 0.00178176,
+      "cost_usd": 0.2131163136,
+      "latency_ms": 102,
+      "throughput_mbps": 0.0011967677696078432,
+      "timestamp": "2026-09-23T04:51:37.491Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 1024,
+      "cost_sol": 0.00801792,
+      "cost_usd": 0.9590234111999999,
+      "latency_ms": 439,
+      "throughput_mbps": 0.002224515945330296,
+      "timestamp": "2026-09-23T04:51:37.491Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 10240,
+      "cost_sol": 0.07216128,
+      "cost_usd": 8.631210700799999,
+      "latency_ms": 417,
+      "throughput_mbps": 0.023418764988009592,
+      "timestamp": "2026-09-23T04:51:37.491Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 102400,
+      "cost_sol": 0.71359488,
+      "cost_usd": 85.3530835968,
+      "latency_ms": 418,
+      "throughput_mbps": 0.23362739234449761,
+      "timestamp": "2026-09-23T04:51:37.491Z"
+    },
+    {
+      "layer": "solana-rent",
+      "operation": "write",
+      "payload_bytes": 1048576,
+      "cost_sol": 7.29897984,
+      "cost_usd": 873.0309786624,
+      "latency_ms": 418,
+      "throughput_mbps": 2.3923444976076556,
+      "timestamp": "2026-09-23T04:51:37.491Z"
+    },
+    {
+      "layer": "solana-compression",
+      "operation": "write",
+      "payload_bytes": 32000,
+      "cost_sol": 0.44610816,
+      "cost_usd": 53.3589970176,
+      "latency_ms": 2,
+      "throughput_mbps": 15.2587890625,
+      "timestamp": "2026-09-23T04:51:37.497Z"
+    },
+    {
+      "layer": "solana-compression",
+      "operation": "write",
+      "payload_bytes": 320000,
+      "cost_sol": 4.45506816,
+      "cost_usd": 532.8707026175999,
+      "latency_ms": 2,
+      "throughput_mbps": 152.587890625,
+      "timestamp": "2026-09-23T04:51:37.497Z"
+    },
+    {
+      "layer": "solana-compression",
+      "operation": "write",
+      "payload_bytes": 3200000,
+      "cost_sol": 44.54466816,
+      "cost_usd": 5327.9877586176,
+      "latency_ms": 2,
+      "throughput_mbps": 1525.87890625,
+      "timestamp": "2026-09-23T04:51:37.497Z"
+    }
+  ]
+}

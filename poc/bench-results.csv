@@ -1,0 +1,13 @@
+layer,operation,detail,payload_bytes,cost_sol,cost_usd,latency_ms,note
+solana-rent,write,,128,0.00178176,0.2131163136,102,
+solana-rent,write,,1024,0.00801792,0.9590234111999999,439,
+solana-rent,write,,10240,0.07216128,8.631210700799999,417,
+solana-rent,write,,102400,0.71359488,85.3530835968,418,
+solana-rent,write,,1048576,7.29897984,873.0309786624,418,
+solana-compression,write,,32000,0.44610816,53.3589970176,2,leaves=1000; cost_per_leaf_sol=0.00044610816
+solana-compression,write,,320000,4.45506816,532.8707026175999,2,leaves=10000; cost_per_leaf_sol=0.00044550681599999996
+solana-compression,write,,3200000,44.54466816,5327.9877586176,2,leaves=100000; cost_per_leaf_sol=0.0004454466816
+solana-program,deploy,anchor build .so indisponivel; ver progress.json,,,,,status=não executado (bloqueado); detail=anchor build .so indisponivel; ver progress.json
+aws-s3,write,,1048576,,,1514,class=STANDARD; cost_per_month_usd=0.0000224609375; cost_per_year_usd=0.00026953125
+aws-s3,write,,1048576,,,220,class=STANDARD_IA; cost_per_month_usd=0.00001220703125; cost_per_year_usd=0.00014648437500000002
+aws-s3,write,,1048576,,,234,class=DEEP_ARCHIVE; cost_per_month_usd=9.66796875e-7; cost_per_year_usd=0.0000116015625

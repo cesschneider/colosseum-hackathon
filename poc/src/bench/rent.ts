@@ -2,8 +2,13 @@ import { Connection, Keypair, SystemProgram, Transaction, LAMPORTS_PER_SOL } fro
 import { rentExemptMinimum, RentBenchmarkResult } from './rent-model';
 
 /**
- * Mede o custo de alocar uma conta com `dataSize` bytes (rent deposit)
- * e o reembolso ao fechá-la. Retorna métricas por tamanho.
+ * Mede o custo de alocar uma conta com `dataSize` bytes (rent deposit).
+ *
+ * NOTA (correção operacional): uma conta System com dados NÃO pode ser fechada
+ * por transfer direta — o fechamento exige o `close` do programa dono. Como aqui
+ * criamos contas de propriedade do System Program (para isolar o custo de rent
+ * puro), não há fechamento programático; registramos o depósito medido e
+ * `refundedLamports: 0` (sem reembolso aplicável neste caminho).
  */
 export async function benchmarkRent(
   connection: Connection,
@@ -28,17 +33,6 @@ export async function benchmarkRent(
   const sig = await connection.sendTransaction(tx, [payer, newAccount], { skipPreflight: false });
   await connection.confirmTransaction(sig, 'confirmed');
 
-  // Fechar a conta para reclamar o depósito.
-  const closeTx = new Transaction().add(
-    SystemProgram.transfer({
-      fromPubkey: newAccount.publicKey,
-      toPubkey: payer.publicKey,
-      lamports: minBalance
-    })
-  );
-  const closeSig = await connection.sendTransaction(closeTx, [newAccount], { skipPreflight: false });
-  await connection.confirmTransaction(closeSig, 'confirmed');
-
   const latencyMs = Date.now() - start;
   const costSol = minBalance / LAMPORTS_PER_SOL;
 
@@ -47,8 +41,8 @@ export async function benchmarkRent(
     minBalanceLamports: minBalance,
     costSol,
     costUsd: costSol * solUsd,
-    refundedLamports: minBalance,
-    netCostSol: 0,
+    refundedLamports: 0,
+    netCostSol: costSol,
     latencyMs
   };
 }
