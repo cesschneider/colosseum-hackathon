@@ -13,8 +13,8 @@ Time enxuto com complementaridade forte entre **domínio (economia/dados)** e **
 | Membro | Papel | Especialidade Central | Status |
 |--------|-------|-----------------------|--------|
 | Marcelo Martins | Domain Expert / Cientista de Dados | Economia aplicada, dados públicos, consultoria | ✅ Perfil completo |
-| Cesar Schneider | Tech Lead / Arquiteto | AWS/CDK, cloud, DevOps, IA/LLM | ✅ Perfil (a confirmar) |
-| *(a preencher)* | — | — | ⏳ Aguardando |
+| Cesar Schneider | Arquiteto de Soluções Sênior / Tech Lead | AWS, cloud, Ethereum, IA aplicada | ✅ Perfil completo |
+| Bella Felix | QA / Pesquisa | Testes, validação, organização de info | ✅ Perfil (a detalhar) |
 
 ---
 
@@ -56,24 +56,43 @@ Time enxuto com complementaridade forte entre **domínio (economia/dados)** e **
 
 ---
 
-### 👤 Cesar Schneider — Tech Lead / Arquiteto
+### 👤 Cesar Schneider — Arquiteto de Soluções Sênior / Tech Lead
 
 **Formação & Background**
-- Fundador / parceiro eWorks Labs
-- Especialista em infraestrutura cloud e arquitetura de software
+- Arquiteto de soluções **sênior**
+- Ampla vivência em **software na nuvem** e plataforma **AWS** (início na AWS em 5 de outubro)
+- Já desenvolveu **apps e contratos (smart contracts) na rede Ethereum**
+- Usa **IA aplicada em todas as fases de projeto**
 
 **Especialidades**
-- **AWS** (CDK, serverless: Lambda, API Gateway, S3, Athena)
-- **DevOps** e CI/CD (GitHub Actions)
-- **Arquitetura de software** (multi-tenant, serverless)
-- **IA/LLM** (Bedrock, LiteLLM, agentes)
+- **AWS** e arquitetura em nuvem (serverless, CDK)
+- **Ethereum** (apps + smart contracts)
+- **IA aplicada** ao ciclo de desenvolvimento (specs, código, testes, validação)
+- Desenvolvimento rápido de specs e código para testar/validar componentes
 
 **Contribuição ao Projeto**
 - Liderança técnica e decisão de stack
-- Infraestrutura como código (CDK)
-- Integração Solana (Passo 3)
+- Escrever specs + código rapidamente assim que o escopo estiver definido
+- Prototipagem e validação de cada componente
+- Blockchain (Ethereum/Solana) no Passo 3
 
-*(Perfil a confirmar/detalhar com o próprio Cesar)*
+**Velocidade de execução**
+> "Quando a gente tiver um escopo definido, consigo desenvolver as specs e código muito rápido para a gente começar a testar e validar cada componente."
+
+---
+
+### 👤 Bella Felix — QA / Pesquisa & Organização
+
+**Papel**
+- **QA, testes e validação**
+- Apoio em **pesquisas** e **organização das informações do projeto**
+
+**Contribuição ao Projeto**
+- Garantia de qualidade (testes, validação)
+- Pesquisa de mercado/fontes de dados
+- Organização e documentação das informações
+
+*(Perfil a detalhar — formação, background e especialidades específicas)*
 
 ---
 
@@ -113,20 +132,24 @@ Time enxuto com complementaridade forte entre **domínio (economia/dados)** e **
 |------------------------|-----------|------|
 | Domínio econômico / validação de dados | Marcelo | — |
 | ETL de bases públicas | Marcelo | Automatização (Cesar) |
-| Arquitetura cloud / CDK | Cesar | — |
+| Arquitetura cloud / AWS / CDK | Cesar | — |
+| QA, testes e validação | Bella | — |
+| Pesquisa & organização de info | Bella | — |
+| Blockchain (Ethereum/Solana) | Cesar | Solana específica (Passo 3) |
 | Processamento big data | ⚠️ A definir | Possível gap (Spark/Athena/Redshift?) |
 | Frontend / UX | ⚠️ A definir | **GAP** |
-| Solana / blockchain | ⚠️ A definir | **GAP** (Passo 3) |
 | Marketing / GTM / tração | ⚠️ A definir | **GAP** |
 
 ---
 
 ## 5. Próximos Passos
 
-- [ ] Confirmar/expandir perfil do Cesar
+- [x] Confirmar/expandir perfil do Cesar
+- [x] Adicionar Bella Felix (QA / pesquisa / organização)
+- [ ] Detalhar perfil da Bella (formação, background, especialidades)
 - [ ] Listar demais membros (se houver)
 - [ ] Fechar ângulo do MVP (macro vs micro)
-- [ ] Definir quem cobre os gaps (frontend, Solana, GTM)
+- [ ] Definir quem cobre os gaps (frontend, big data, GTM)
 
 ---
 
