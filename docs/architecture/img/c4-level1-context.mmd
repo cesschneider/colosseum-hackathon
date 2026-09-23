@@ -1,15 +1,21 @@
 flowchart TB
-    subgraph Users["Pessoas / Atores"]
-        Consultor["Consultor / Analista<br/>(Marcelo)"]
-        Empresa["PME / Empresa<br/>(cliente final)"]
-        Admin["Admin do Time<br/>(Cesar)"]
-    end
+    %% C4 Model styling
+    classDef person fill:#08427B,color:#fff,stroke:#052E56,stroke-width:1px
+    classDef system fill:#1168BD,color:#fff,stroke:#0B4884,stroke-width:1px
+    classDef external fill:#999999,color:#fff,stroke:#6B6B6B,stroke-width:1px
+
+    Consultor["Consultor / Analista<br/>(Marcelo)"]
+    Empresa["PME / Empresa<br/>(cliente final)"]
+    Admin["Admin do Time<br/>(Cesar)"]
 
     Platform["Marketplace de Dados<br/>Públicos Micro (BR)<br/>[Sistema]"]
     Solana["Rede Solana<br/>[Sistema Externo]"]
 
-    Consultor -->|"consulta dados micro (API/dashboard)"| Platform
+    Consultor -->|"consulta dados micro<br/>(API/dashboard)"| Platform
     Empresa -->|"assina plano / consome dados"| Platform
     Admin -->|"gerencia datasets & ingestão"| Platform
-
     Platform -->|"prova de integridade + token-gating"| Solana
+
+    class Consultor,Empresa,Admin person
+    class Platform system
+    class Solana external

@@ -1,0 +1,19 @@
+sequenceDiagram
+    autonumber
+    participant EB as EventBridge (cron)
+    participant L as Lambda Ingest (AWS)
+    participant IBGE as IBGE API
+    participant S3 as S3 Parquet (AWS)
+    participant P as Programa Solana (provenance)
+
+    EB->>L: trigger (mensal/dia 15)
+    L->>IBGE: GET agregado IPCA
+    IBGE-->>L: JSON série temporal
+    L->>L: parse + normalize + validate
+    L->>S3: PUT parquet (particionado year/month)
+    L->>L: calcula SHA-256 do arquivo
+    L->>P: store_dataset(hash, metadados) → PDA
+    P-->>L: confirmação on-chain
+    L-->>EB: 200 (recordsCount)
+
+    Note over P: verify_dataset(hash) permite<br/>qualquer cliente validar<br/>integridade sem confiar na AWS

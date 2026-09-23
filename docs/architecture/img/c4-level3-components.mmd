@@ -1,4 +1,9 @@
 flowchart LR
+    %% C4 Model styling
+    classDef comp fill:#85BBF0,color:#0B4884,stroke:#438DD5,stroke-width:1px
+    classDef ext fill:#999999,color:#fff,stroke:#6B6B6B,stroke-width:1px
+    classDef bound fill:none,color:#666,stroke:#999,stroke-dasharray:4 4,font-weight:bold
+
     subgraph IngestLambda["Lambda Ingestão (por dataset)"]
         Fetch["Fetcher<br/>(IBGE/ANP/WorldBank)"]
         Parse["Parser<br/>(normalização)"]
@@ -9,7 +14,7 @@ flowchart LR
 
     Fetch --> Parse --> Validate --> Write
     Write --> S3["S3 Parquet"]
-    Validate --> Hash --> Chain["Solana on-chain"]
+    Validate --> Hash --> Chain["Programa Solana"]
 
     subgraph ApiLambda["Lambda API"]
         Auth["JWT / Wallet Auth"]
@@ -20,3 +25,7 @@ flowchart LR
 
     Auth --> Router --> Query --> Formatter
     Query --> Athena["Athena"]
+
+    class Fetch,Parse,Validate,Write,Hash,Auth,Router,Query,Formatter comp
+    class S3,Chain,Athena ext
+    class IngestLambda,ApiLambda bound

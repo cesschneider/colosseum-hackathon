@@ -1,4 +1,9 @@
 flowchart TB
+    %% C4 Model styling
+    classDef container fill:#438DD5,color:#fff,stroke:#2E6296,stroke-width:1px
+    classDef chain fill:#1168BD,color:#fff,stroke:#0B4884,stroke-width:1px
+    classDef bound fill:none,color:#666,stroke:#999,stroke-dasharray:4 4,font-weight:bold
+
     subgraph AWS["AWS (Dados & Compute)"]
         S3["S3 Data Lake<br/>(Parquet particionado)"]
         Glacier["S3 Glacier<br/>(arquivo frio)"]
@@ -8,8 +13,8 @@ flowchart TB
         Frontend["Dashboard<br/>(Next.js/Recharts)"]
     end
 
-    subgraph Web3["Solana (nativo)"]
-        Chain["Solana Programs<br/>(storage + provenance)"]
+    subgraph Sol["Solana (nativo)"]
+        Chain["Programa Próprio<br/>(storage + provenance)"]
         Compress["State Compression<br/>(Merkle integridade)"]
     end
 
@@ -18,6 +23,9 @@ flowchart TB
     S3 -->|"scaneia"| Athena
     API -->|"query"| Athena
     Frontend -->|"REST"| API
-
     Ingest -->|"publica hash/proof"| Chain
     Chain -->|"integridade em escala"| Compress
+
+    class S3,Glacier,Athena,Ingest,API,Frontend container
+    class Chain,Compress chain
+    class AWS,Sol bound
