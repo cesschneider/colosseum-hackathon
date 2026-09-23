@@ -44,10 +44,9 @@ flowchart TB
         Frontend["Dashboard<br/>(Next.js/Recharts)"]
     end
 
-    subgraph Web3["Solana / Descentralizado"]
-        Chain["Solana Programs<br/>(provenance + token-gating)"]
-        Irys["Irys<br/>(datasets âncora)"]
-        Walrus["Walrus<br/>(blob verificável)"]
+    subgraph Web3["Solana (nativo)"]
+        Chain["Solana Programs<br/>(storage + provenance)"]
+        Compress["State Compression<br/>(Merkle integridade)"]
     end
 
     Ingest -->|"escreve Parquet"| S3
@@ -57,8 +56,7 @@ flowchart TB
     Frontend -->|"REST"| API
 
     Ingest -->|"publica hash/proof"| Chain
-    S3 -->|"snapshot permanente"| Irys
-    Frontend -->|"upload blob"| Walrus
+    Chain -->|"integridade em escala"| Compress
 ```
 
 ---
@@ -100,8 +98,7 @@ sequenceDiagram
     participant L as Lambda Ingest
     participant IBGE as IBGE API
     participant S3 as S3 Parquet
-    participant Sol as Solana (hash)
-    participant Irys as Irys
+    participant Sol as Solana (programa)
 
     EB->>L: trigger (mensal/dia 15)
     L->>IBGE: GET agregado IPCA
@@ -109,8 +106,7 @@ sequenceDiagram
     L->>L: parse + normalize + validate
     L->>S3: PUT parquet (particionado year/month)
     L->>L: calcula hash (SHA-256) do arquivo
-    L->>Sol: registra hash + metadados (PDA)
-    L->>Irys: publica snapshot âncora (se dataset oficial)
+    L->>Sol: registra hash + metadados (programa PDA)
     L-->>EB: 200 (recordsCount)
 ```
 
@@ -119,9 +115,9 @@ sequenceDiagram
 ## Notas de Decisão (ligadas ao placement)
 
 - **Dados brutos & query** ficam na AWS (S3 + Athena) — ver `DECISAO-PLACEMENT-SOLANA-VS-AWS.md`.
-- **Solana** entra como camada de *provenance* (hash on-chain) e *monetização* (token-gating), não como storage de big data.
-- **Irys** guarda snapshots "âncora" permanentes (US$ 2,33/GB) para proof-of-existence.
-- **Walrus** é opcional (blob verificável, US$ 0,023/GB/mês — substitui o shdwDrive abandonado).
+- **Solana nativo** entra como camada de *provenance* (hash on-chain via programa próprio) e *monetização* (token-gating), não como storage de big data.
+- **Sem storage cross-chain** (Irys/Walrus/Arweave) — fora de escopo por CON-000.
+- **State compression** (Merkle) para integridade em escala, quando o nº de assets é grande.
 
 ---
 

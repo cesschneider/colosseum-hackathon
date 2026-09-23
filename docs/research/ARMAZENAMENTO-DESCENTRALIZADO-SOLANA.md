@@ -71,18 +71,19 @@ Técnica nativa Solana para armazenar **dados de forma comprimida** — hashes e
 
 **Quando usar:** NFT metadata/media, registros legais, arquivos históricos, datasets públicos permanentes. Permanência > flexibilidade.
 
-### 3.2 Irys (ex-Bundlr) — "Programmable Datachain" (Layer-1 de dados)
+### 3.2 Irys (ex-Bundlr) — ⚠️ NÃO é nativo Solana (Layer-1 própria)
+
+> **Correção importante (22 set):** o Irys **começou** como um bundler que pagava em SOL e ancorava em Arweave, mas **hoje é uma Layer-1 datachain própria** (IrysVM, token nativo IRYS, EVM++). **Não é mais um serviço sobre Solana** — portanto **fora do escopo "nativo Solana".**
 
 | Aspecto | Detalhe |
 |---------|---------|
-| **Modelo** | Multi-ledger: term storage (dias/meses/anos) + ledger permanente |
-| **Custo permanente** | **~US$ 2,33 / GB** (one-time) — mais barato que Arweave |
-| **Custo term** | ~US$ 0,00007358 / GB / epoch (base ~US$ 0,0753/TB/epoch) |
-| **Per TB permanente** | ~US$ 2.382 |
-| **Uploads < 100 KiB** | Gratuitos |
-| **Execução** | IrysVM (EVM-compatible) lê dados on-chain → licensing/royalties/IA |
+| **Arquitetura atual** | Layer-1 datachain própria (storage + execução no mesmo protocolo) |
+| **VM** | IrysVM (EVM++ com precompile que lê dados on-chain) |
+| **Token nativo** | IRYS (não SOL) |
+| **Custo permanente** | ~US$ 2,33 / GB (one-time) |
+| **Custo term** | ~US$ 0,00007358 / GB / epoch |
 
-**Quando usar:** datasets on-chain programáveis, preço mais agressivo que Arweave, integração nativa com Solana (pagamento em SOL via wallet).
+**Status para o projeto:** documentado, mas **excluído do PoC nativo Solana** (não roda em Solana).
 
 ### 3.3 Walrus (Mysten Labs / Sui) — camada "quente" ativa (substituto do shdwDrive)
 

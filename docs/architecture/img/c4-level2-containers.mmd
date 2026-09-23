@@ -8,10 +8,9 @@ flowchart TB
         Frontend["Dashboard<br/>(Next.js/Recharts)"]
     end
 
-    subgraph Web3["Solana / Descentralizado"]
-        Chain["Solana Programs<br/>(provenance + token-gating)"]
-        Irys["Irys<br/>(datasets âncora)"]
-        Walrus["Walrus<br/>(blob verificável)"]
+    subgraph Web3["Solana (nativo)"]
+        Chain["Solana Programs<br/>(storage + provenance)"]
+        Compress["State Compression<br/>(Merkle integridade)"]
     end
 
     Ingest -->|"escreve Parquet"| S3
@@ -21,5 +20,4 @@ flowchart TB
     Frontend -->|"REST"| API
 
     Ingest -->|"publica hash/proof"| Chain
-    S3 -->|"snapshot permanente"| Irys
-    Frontend -->|"upload blob"| Walrus
+    Chain -->|"integridade em escala"| Compress
