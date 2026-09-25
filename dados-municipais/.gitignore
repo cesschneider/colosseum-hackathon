@@ -1,0 +1,13 @@
+# Dados gerados pelas rotinas (brutos, tratados, painel, logs)
+dados/
+# Scripts originais do projeto anterior (referencia local; nao publicar)
+scripts/
+scripts-*.zip
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.part
+# Python
+__pycache__/
+*.pyc
