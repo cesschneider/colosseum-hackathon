@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T04:55:00Z",
+  "updated_at": "2026-09-28T05:11:30Z",
   "commit_base": "d77fc43",
   "steps": {
     "1_fund_devnet_wallet": {
@@ -7,9 +7,9 @@
       "detail": "solana airdrop 2 --url devnet -> rate limit reached. devnet-pow mine -d 3 --reward 0.02 também rate-limitado. Bloqueador externo; fallback local validator adotado.",
       "reattempt_2026-09-23": "solana airdrop -> ainda 'airdrop request failed (rate limit)'. devnet-pow v0.1.4 -> 'Genesis hash does not correspond to devnet' (devnet cluster upgraded para 4.3.0-rc.0; faucets get-all-faucets retorna balanços mas 'mine' responde 'No faucets found'). Ambos bloqueadores externos re-confirmados; NÃO há faucet devnet-pow funcional contra a rede atual.",
       "updated_at": "2026-09-28T04:34:22Z",
-      "recheck_2026-09-28_cron_114": "Re-confirmado (114a passada, 28 set 2026 ~05:5x UTC): solana airdrop 2 (bench-wallet) e airdrop 1 (wallet nova /tmp/fresh-wallet-114.json) -> ambos 'airdrop request failed (rate limit)'; devnet-pow mine -d 3 -> mesmo erro do faucet RPC. Bloqueio persiste (~142h). Artefatos intactos (tamanhos e working tree verificados). Steps 2-4 concluidos com numeros reais em local validator.",
-      "recheck_2026-09-28_cron_115": "Re-confirmado (115a passada, 28 set 2026 ~04:50 UTC): cluster devnet 4.3.0 acessivel, balance bench-wallet = 0 SOL. solana airdrop 2 (bench-wallet) e airdrop 1 (wallet nova /tmp/fresh-wallet-115.json, 2FkBj6xAHWNg5pARZRyGzFbwA95nUjVRm75py2Ue2hcr) -> ambos 'airdrop request failed (rate limit)'; devnet-pow mine -d 3 --reward 0.02 --no-infer -t 5000000000 -u devnet -> 'airdrop request failed (rate limit)' do faucet RPC. Bloqueio persiste (~143h). Artefatos intactos: poc/bench-results.csv (1584B), poc/docs/research/BENCHMARK-RESULTS.md (7117B), bench-results.raw.json (6119B), program-benchmark.json (580B), dataset_provenance.so (222152B). git working tree limpo. Steps 2-4 concluidos com numeros reais em local validator.",
-      "recheck_history_note": "Rechecks das passadas 1-99 podados em 28 set 2026 (passada 100); rechecks 104-109 podados na passada 111; rechecks 111-113 podados na passada 115. Historico completo preservado no git log (commits de recheck das passadas 21-115)."
+      "recheck_2026-09-28_cron_115": "Podada (passada 116). Conteudo equivalente ao recheck_114: rate-limit persistente, artefatos intactos.",
+      "recheck_2026-09-28_cron_116": "Re-confirmado (116a passada, 28 set 2026 ~05:10 UTC): cluster devnet 4.3.0 acessivel, balance bench-wallet = 0 SOL. solana airdrop 2 (bench-wallet) + 3 retries com 20s de espera + airdrop 1 em wallet nova -> todos 'airdrop request failed (rate limit)'; devnet-pow mine -d 3 --reward 0.02 --no-infer -t 5000000000 -u devnet -> 'airdrop request failed (rate limit)' do faucet RPC. Bloqueio persiste (~144h). Artefatos intactos: poc/bench-results.csv (1584B), poc/docs/research/BENCHMARK-RESULTS.md (7117B), poc/docs/research/bench-results.raw.json (6119B, em docs/research/), poc/docs/research/program-benchmark.json (580B, em docs/research/), dataset_provenance.so (222152B). git working tree limpo. Local validator nao rodando (benchmarks ja concluidos 23 set; sem necessidade de rede). Steps 2-4 concluidos com numeros reais em local validator.",
+      "recheck_history_note": "Rechecks das passadas 1-99 podados em 28 set 2026 (passada 100); rechecks 104-109 podados na passada 111; rechecks 111-115 podados na passada 116. Historico completo preservado no git log (commits de recheck das passadas 21-116)."
     },
     "2_deploy_anchor_program": {
       "status": "concluido",
