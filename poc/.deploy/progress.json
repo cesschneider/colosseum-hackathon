@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T05:40:00Z",
+  "updated_at": "2026-09-28T05:43:30Z",
   "commit_base": "d77fc43",
   "steps": {
     "1_fund_devnet_wallet": {
@@ -10,6 +10,7 @@
       "recheck_2026-09-28_cron_115": "Podada (passada 116). Conteudo equivalente ao recheck_114: rate-limit persistente, artefatos intactos.",
       "recheck_2026-09-28_cron_116": "Podada (passada 117). Conteudo equivalente ao recheck_115: rate-limit persistente, artefatos intactos.",
       "recheck_2026-09-28_cron_117": "Re-confirmado (117a passada, 28 set 2026 ~05:40 UTC): cluster devnet 4.3.0 acessivel, balance bench-wallet = 0 SOL. solana airdrop 2 (bench-wallet) + 3 retries com 20s de espera + airdrop 1 em wallet nova -> todos 'airdrop request failed (rate limit)'; devnet-pow mine -d 3 --reward 0.02 --no-infer -t 5000000000 -u devnet -> 'airdrop request failed (rate limit)' do faucet RPC. Bloqueio persiste (~145h). Artefatos intactos: poc/bench-results.csv (1584B), poc/docs/research/BENCHMARK-RESULTS.md (7117B), poc/docs/research/bench-results.raw.json (6119B, em docs/research/), poc/docs/research/program-benchmark.json (580B, em docs/research/), dataset_provenance.so (222152B). git working tree limpo. Local validator nao rodando (benchmarks ja concluidos 23 set; sem necessidade de rede). Steps 2-4 concluidos com numeros reais em local validator.",
+      "recheck_2026-09-28_cron_118": "Re-confirmado (118a passada, 28 set 2026 ~05:43 UTC): balance devnet 0 SOL. solana airdrop 2 x 3 tentativas (20s entre elas) -> todas 'airdrop request failed (rate limit)'; devnet-pow mine -d 3 --reward 0.02 --no-infer -t 5000000000 -u devnet -> 'airdrop request failed (rate limit)'. Bloqueio persiste (~146h). Artefatos intactos (csv 1584B, MD 7117B, raw.json 6119B, so 222152B); working tree limpo.",
       "recheck_history_note": "Rechecks das passadas 1-99 podados em 28 set 2026 (passada 100); rechecks 104-109 podados na passada 111; rechecks 111-116 podados na passada 117. Historico completo preservado no git log (commits de recheck das passadas 21-117)."
     },
     "2_deploy_anchor_program": {
