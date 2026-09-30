@@ -65,7 +65,23 @@ e_xlsx <- function(arquivo) {
   if (file.info(arquivo)$size < 1e6) return(FALSE)
   con <- file(arquivo, "rb")
   on.exit(close(con), add = TRUE)
-  identical(readBin(con, "raw", 2L), as.raw(c(0x50, 0x4B)))
+  ok <- identical(readBin(con, "raw", 2L), as.raw(c(0x50, 0x4B)))
+  if (!ok) return(FALSE)
+  # O Drive as vezes entrega um ZIP cujo unico membro e o XLSX real. Se for o
+  # caso, extrai o membro para o proprio destino (o arquivo externo passa a ser
+  # o xlsx). XLSX legimito (tem "[Content_Types].xml" ou "xl/") e mantido.
+  membros <- tryCatch(utils::unzip(arquivo, list = TRUE)$Name, error = function(e) character())
+  if (!any(grepl("^\\[Content_Types\\]\\.xml$|^xl/", membros))) {
+    interno <- membros[grepl("[.]xlsx$", membros, ignore.case = TRUE)][1L]
+    if (!is.na(interno)) {
+      pasta <- tempfile("mapbiomas_zip_")
+      utils::unzip(arquivo, files = interno, exdir = pasta)
+      file.copy(file.path(pasta, interno), arquivo, overwrite = TRUE)
+      unlink(pasta, recursive = TRUE)
+      log_msg("Bruto era um zip Drive com o xlsx dentro; xlsx real extraido para ", arquivo)
+    }
+  }
+  TRUE
 }
 
 # 1. Descoberta do arquivo da colecao vigente

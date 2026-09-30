@@ -131,7 +131,13 @@ ler_precos <- function(arquivo) {
     pasta <- tempfile("anp_precos_")
     on.exit(unlink(pasta, recursive = TRUE), add = TRUE)
     descompactar_zip(arquivo, pasta)
-    csv <- list.files(pasta, pattern = "[.]csv$", full.names = TRUE, recursive = TRUE, ignore.case = TRUE)[1L]
+    # Zip da ANP grava nome interno em Latin-1 (bytes invalidos em UTF-8),
+    # o que faz o pattern "[.]csv$" falhar via list.files. Seleciona o primeiro
+    # arquivo (qualquer extensao) da pasta extraida com fallback ao pattern.
+    extraidos <- list.files(pasta, full.names = TRUE, recursive = TRUE, all.files = TRUE)
+    csv <- extraidos[grepl("[.]csv$", extraidos, ignore.case = TRUE)][1L]
+    if (is.na(csv)) csv <- extraidos[tools::file_ext(extraidos) %in% c("csv", "txt", "")][1L]
+    if (is.na(csv)) csv <- extraidos[1L]
   }
   cabecalho <- normalizar_nome(names(fread(csv, sep = ";", nrows = 0L, encoding = "UTF-8")))
   colunas <- match(c("estado sigla", "municipio", "produto", "data da coleta", "valor de venda"), cabecalho)
