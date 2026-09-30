@@ -26,16 +26,16 @@
 | sagicad_bolsa_familia | 1.519.903 | 161,5 | 15 | 90 | 18 | ✅ (fase 2, 29/09) |
 | sagicad_cadunico | 941.248 | 81,5 | 15 | 97 | 12 | ✅ |
 | senatran | 672.752 | 87,9 | 38 | 243 | 242 | ✅ |
+| sim | 150.417 | 15,3 | 16 | 250 | 650 | ✅ (após install microdatasus) |
 | snis_sinisa | 5.250 | 0,7 | 28 | 32 | 4 | ✅ (só SINISA 2023+; SNIS 2000-22 manual) |
 
-**Totais até agora: 17 fontes · ~6,1M linhas curadas · ~607 MB curados · ~7,0 GB raw (STANDARD_IA)**
+**Totais até agora: 18 fontes · ~6,3M linhas curadas · ~625 MB curados · ~7,3 GB raw (STANDARD_IA)**
 
 ## Em andamento / pendentes
 
 | Fonte | Situação |
 |---|---|
-| siconfi | 🔄 Rodando (~5h+): DCA/RREO ente a ente, 5.570 municípios; log em `etl-execucao.log`. Último: DCA 2024 2700/5570 |
-| sim | ⏳ Aguardando pacote R `microdatasus` (compilação duckdb em andamento); retry após install |
+| siconfi | 🔄 Rodando (~6h+): DCA concluída, agora RREO 2024 (~700/5570 entes); log em `etl-execucao.log` |
 | inep (censo/ideb/rendimento) | ⏳ Fila após siconfi — **excluir fluxo `enem`** na 1ª passada (10 GB brutos) |
 | inep/enem | ⏳ Fatiar por ano (1,6-4 GB/ano) |
 | rais | ⏳ Fatiar por ano via `PAINEL_RAIS_ANO_FINAL` (1,5-3,9 GB/ano comprimido; exige 7z) |
