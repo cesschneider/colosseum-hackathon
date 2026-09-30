@@ -205,7 +205,13 @@ validar_schema <- function(arquivo, fluxo, ano) {
   membros <- listar_membros_zip(arquivo)
   membros <- membros[!grepl("/$", membros) & !grepl("dicion|leia|anexo|md5|~[$]", membros, ignore.case = TRUE)]
   achar <- function(padrao, descricao) {
-    m <- membros[grepl(padrao, basename(membros), ignore.case = TRUE, perl = TRUE)]
+    # Nomes internos de zips do INEP vem em Latin-1 (bytes invalidos em UTF-8),
+    # o que faz grepl() devolver NA ("input string is invalid") e zera o match.
+    # Normaliza o basename por transliteracao antes de comparar.
+    .nome <- function(x) {
+      iconv(basename(x), from = "latin1", to = "UTF-8", sub = "?")
+    }
+    m <- membros[grepl(padrao, .nome(membros), ignore.case = TRUE, perl = TRUE)]
     if (length(m) != 1L) stop("Esperado um arquivo de ", descricao, "; encontrados ", length(m))
     m
   }

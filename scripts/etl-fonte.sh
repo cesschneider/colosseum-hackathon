@@ -13,6 +13,10 @@ set -euo pipefail
 
 FONTE="${1:?Uso: etl-fonte.sh <fonte>}"
 export AWS_PROFILE="${AWS_PROFILE:-eworks-dev}"
+# Cadeia TLS incompleta em servicos gov.br (economia=SECEX/Sectigo, inep=RNP/GlobalSign):
+# bundle com intermediarios faltantes; ignorado se o arquivo nao existir.
+GOVBR_CHAIN=/etc/ssl/certs/govbr-chain.pem
+[ -f "$GOVBR_CHAIN" ] && export CURL_CA_BUNDLE="$GOVBR_CHAIN"
 BUCKET="${BUCKET:-colosseum-dados-municipais-dev}"
 STAGING="${PAINEL_DADOS:-/data/colosseum/staging}"
 REPO="$(cd "$(dirname "$0")/.." && pwd)"

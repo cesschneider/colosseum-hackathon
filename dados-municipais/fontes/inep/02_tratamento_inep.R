@@ -79,7 +79,10 @@ listar_zips <- function(fluxo) {
 achar_membro <- function(zip, padrao, descricao, obrigatorio = TRUE) {
   membros <- listar_membros_zip(zip)
   membros <- membros[!grepl("/$", membros) & !grepl("dicion|leia|anexo|md5|~[$]", membros, ignore.case = TRUE)]
-  m <- membros[grepl(padrao, basename(membros), ignore.case = TRUE, perl = TRUE)]
+  # Nomes internos em Latin-1 (bytes invalidos em UTF-8) fazem grepl() devolver
+  # NA; normaliza o basename antes de comparar (mesma causa do 01_extracao).
+  .nome <- iconv(basename(membros), from = "latin1", to = "UTF-8", sub = "?")
+  m <- membros[grepl(padrao, .nome, ignore.case = TRUE, perl = TRUE)]
   if (length(m) == 1L) return(m)
   if (!length(m) && !obrigatorio) return(NA_character_)
   stop("Esperado um arquivo de ", descricao, " em ", basename(zip), "; encontrados ", length(m))
@@ -92,7 +95,11 @@ extrair_membro <- function(zip, membro, pasta) {
   dir.create(pasta, recursive = TRUE, showWarnings = FALSE)
   localizar <- function() {
     a <- list.files(pasta, recursive = TRUE, full.names = TRUE)
-    a <- a[toupper(basename(a)) == toupper(basename(membro))]
+    # basename extraido pode vir com bytes Latin-1 invalidos em UTF-8
+    # (nomes do INEP pre-2010); compara via iconv tolerante.
+    norm <- function(x) iconv(basename(x), from = "latin1", to = "UTF-8", sub = "?")
+    alvo <- norm(membro)
+    a <- a[toupper(norm(a)) == toupper(alvo)]
     if (length(a) == 1L && file.info(a)$size > 0) a else NA_character_
   }
   ok <- tryCatch({ suppressWarnings(descompactar_zip(zip, pasta, membros = membro)); TRUE }, error = function(e) FALSE)
