@@ -1,0 +1,137 @@
+{
+  "ibge_populacao": {
+    "descricao": "Populacao residente estimada (ESTIMA_PO) e censitaria (POPTOT) por municipio",
+    "orgao": "IBGE / Ipeadata",
+    "periodicidade": "anual",
+    "cobertura_temporal": "1992-2026",
+    "tabela_glue": "ibge_populacao_municipal"
+  },
+  "datasus_populacao": {
+    "descricao": "Populacao residente por faixa etaria (TabNet/DATASUS)",
+    "orgao": "DATASUS / Ministerio da Saude",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2000-2025",
+    "tabela_glue": "datasus_populacao_municipal"
+  },
+  "ibge_censo_demografico": {
+    "descricao": "Censo Demografico: populacao por sexo, idade e situacao de domicilio",
+    "orgao": "IBGE",
+    "periodicidade": "decenal",
+    "cobertura_temporal": "2000-2022",
+    "tabela_glue": "ibge_censo_demografico_municipal"
+  },
+  "ipea_suicidios": {
+    "descricao": "Numero de suicidios e taxa por 100 mil habitantes",
+    "orgao": "Ipeadata (serie AVIOL12_SUICID)",
+    "periodicidade": "anual",
+    "cobertura_temporal": "1980-2022",
+    "tabela_glue": "ipea_suicidios_municipal"
+  },
+  "caged": {
+    "descricao": "Admissoes, desligamentos e saldo do mercado formal (Novo Caged)",
+    "orgao": "Ministerio do Trabalho e Emprego",
+    "periodicidade": "mensal",
+    "cobertura_temporal": "2020-2026",
+    "tabela_glue": "caged_municipal"
+  },
+  "sagicad_cadunico": {
+    "descricao": "Cadastro Unico: familias e pessoas cadastradas por faixa de renda",
+    "orgao": "SAGI/MDS (MISocial)",
+    "periodicidade": "mensal",
+    "cobertura_temporal": "2012-2026",
+    "tabela_glue": "sagicad_cadunico_municipal"
+  },
+  "senatran": {
+    "descricao": "Frota de veiculos por municipio e tipo/combustivel (RENAVAM)",
+    "orgao": "SENATRAN",
+    "periodicidade": "mensal",
+    "cobertura_temporal": "2016-2026",
+    "tabela_glue": "senatran_municipal"
+  },
+  "anp": {
+    "descricao": "Vendas de combustiveis por municipio e precos de revenda",
+    "orgao": "ANP",
+    "periodicidade": "anual (vendas) / semestral (precos)",
+    "cobertura_temporal": "1990-2024",
+    "tabela_glue": "anp_municipal"
+  },
+  "mtur": {
+    "descricao": "Cadastur: meios de hospedagem e prestadores de servicos turisticos",
+    "orgao": "Ministerio do Turismo",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2006-2026",
+    "tabela_glue": "mtur_municipal"
+  },
+  "snis_sinisa": {
+    "descricao": "Saneamento: agua e esgoto (SNIS 2000-2022, SINISA 2023+)",
+    "orgao": "Ministerio das Cidades",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2000-2023",
+    "tabela_glue": "snis_sinisa_municipal"
+  },
+  "bcb_estban": {
+    "descricao": "Estatistica bancaria por municipio: depositos, creditos e saldos",
+    "orgao": "Banco Central do Brasil",
+    "periodicidade": "mensal",
+    "cobertura_temporal": "2000-2026",
+    "tabela_glue": "bcb_estban_municipal"
+  },
+  "mapbiomas": {
+    "descricao": "Cobertura e uso da terra por municipio (Colecao 30m)",
+    "orgao": "MapBiomas Brasil",
+    "periodicidade": "anual",
+    "cobertura_temporal": "1985-2025",
+    "tabela_glue": "mapbiomas_municipal"
+  },
+  "ibge_agropecuaria": {
+    "descricao": "Producao agricola municipal (PAM), pecuaria (PPM) e aquicultura",
+    "orgao": "IBGE (SIDRA 1612, 1613, 3940)",
+    "periodicidade": "anual",
+    "cobertura_temporal": "1974-2025",
+    "tabela_glue": "ibge_agropecuaria_municipal"
+  },
+  "comex": {
+    "descricao": "Comercio exterior: exportacoes e importacoes por municipio",
+    "orgao": "SECEX / MDIC",
+    "periodicidade": "anual + mensal",
+    "cobertura_temporal": "2000-2026",
+    "tabela_glue": "comex_municipal"
+  },
+  "siconfi": {
+    "descricao": "Financas municipais: receitas (DCA) e despesas (RREO Anexo 06)",
+    "orgao": "Tesouro Nacional (SICONFI)",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2013-2025",
+    "tabela_glue": "siconfi_municipal"
+  },
+  "inep": {
+    "descricao": "Educacao: censo escolar, taxas de rendimento, IDEB e ENEM",
+    "orgao": "INEP",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2007-2025",
+    "tabela_glue": "inep_censo_escolar_municipal"
+  },
+  "anatel": {
+    "descricao": "Acessos de banda larga fixa por municipio",
+    "orgao": "Anatel",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2007-2026",
+    "tabela_glue": "anatel_municipal"
+  },
+  "rais": {
+    "descricao": "Mercado de trabalho formal: estabelecimentos, vinculos e remuneracao",
+    "orgao": "MTE (PDET)",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2010-2025",
+    "tabela_glue": "rais_municipal"
+  },
+  "sim": {
+    "descricao": "Mortalidade (SIM-DO): obitos por causa (CID-10), idade e sexo",
+    "orgao": "DATASUS / Ministerio da Saude",
+    "periodicidade": "anual",
+    "cobertura_temporal": "2000-2026",
+    "tabela_temporal": "2000-2026",
+    "cobertura": "2000-2026",
+    "tabela_glue": "sim_municipal"
+  }
+}
