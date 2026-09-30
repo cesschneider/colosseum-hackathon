@@ -1,0 +1,16 @@
+{
+  "name": "dados-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API de dados municipais (colosseum-hackathon): API Gateway + Lambda token-gated + Athena/S3",
+  "scripts": {
+    "synth": "cdk synth",
+    "deploy": "cdk deploy --require-approval never",
+    "test": "node test/dados-api.test.js"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.200.0",
+    "aws-cdk-lib": "^2.200.0",
+    "constructs": "^10.4.2"
+  }
+}

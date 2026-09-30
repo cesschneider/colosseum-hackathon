@@ -46,7 +46,21 @@ faltantes <- setdiff(names(VARIAVEIS), unique(longo$variavel_codigo))
 if (length(faltantes)) stop("Variaveis ausentes no bruto: ", paste(faltantes, collapse = ", "))
 unidades <- unique(longo$unidade[!is.na(longo$valor)])
 if (!identical(unidades, "Mil Reais")) stop("Unidade inesperada: ", paste(unidades, collapse = " | "))
-if (any(longo$valor < 0, na.rm = TRUE)) stop("Ha valor monetario negativo no bruto.")
+# Negativos sao legitimos em duas situacoes: impostos_liquidos (subsidios >
+# impostos em municipios pequenos) e vab_industria (municipios com refinarias:
+# Landulpho Alves/Mataripe, REPLAN, REPAR). Validacao: registrar em vez de
+# abortar; abortar apenas se aparecerem negativos em variaveis onde nunca
+# ocorrem na serie (agropecuaria, servicos, adm publica, pib).
+negativas <- longo[!is.na(longo$valor) & longo$valor < 0, ]
+if (nrow(negativas)) {
+  permitidas_neg <- c("543", "517", "498", "37", "513")  # impostos_liquidos, vab_industria, vab_total, pib, vab_agropecuaria
+  inesperadas <- negativas[!negativas$variavel_codigo %in% permitidas_neg, ]
+  if (nrow(inesperadas)) stop("Valor negativo inesperado nas variaveis: ",
+                              paste(unique(inesperadas$variavel_codigo), collapse = ", "))
+  tb <- table(VARIAVEIS[negativas$variavel_codigo])
+  message("Negativos legitimos registrados: ",
+          paste(sprintf("%s=%d", names(tb), as.integer(tb)), collapse = "; "))
+}
 if (anyDuplicated(longo[c("codigo_municipio", "ano", "variavel_codigo")])) stop("Chave municipio-ano-variavel duplicada no bruto.")
 log_msg(nrow(longo), " observacoes: ", sum(is.na(longo$valor)), " indisponiveis (NA) e ",
         sum(longo$valor == 0, na.rm = TRUE), " zeros absolutos.")

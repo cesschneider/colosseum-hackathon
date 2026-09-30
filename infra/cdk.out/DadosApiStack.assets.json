@@ -1,0 +1,36 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "9c9b0d6c1d2c4495ddd481599545b6455caf1d4ec1027d56fa787399d8cd49d9": {
+      "displayName": "DadosApiFn/Code",
+      "source": {
+        "path": "asset.9c9b0d6c1d2c4495ddd481599545b6455caf1d4ec1027d56fa787399d8cd49d9",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "666637312477-us-east-1-be178624": {
+          "bucketName": "cdk-hnb659fds-assets-666637312477-us-east-1",
+          "objectKey": "9c9b0d6c1d2c4495ddd481599545b6455caf1d4ec1027d56fa787399d8cd49d9.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::666637312477:role/cdk-hnb659fds-file-publishing-role-666637312477-us-east-1"
+        }
+      }
+    },
+    "d7d6024e3c209ea60f707ba0a3a34b4a308b25707d00b96162f084cc87f22f9b": {
+      "displayName": "DadosApiStack Template",
+      "source": {
+        "path": "DadosApiStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "666637312477-us-east-1-b7c5cee8": {
+          "bucketName": "cdk-hnb659fds-assets-666637312477-us-east-1",
+          "objectKey": "d7d6024e3c209ea60f707ba0a3a34b4a308b25707d00b96162f084cc87f22f9b.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::666637312477:role/cdk-hnb659fds-file-publishing-role-666637312477-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
