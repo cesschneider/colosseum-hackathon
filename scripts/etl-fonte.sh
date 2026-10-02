@@ -44,13 +44,19 @@ log "2/8 upload raw -> s3://$BUCKET/raw/$FONTE/"
 aws s3 sync "$STAGING/brutos/$FONTE" "s3://$BUCKET/raw/$FONTE/" --storage-class STANDARD_IA
 
 # --- 3. VERIFY RAW (objeto a objeto ANTES de qualquer exclusao) ---------------
+# Compara apenas os arquivos LOCAIS contra os objetos correspondentes no S3
+# (o bucket raw e acumulativo entre fatias/rodadas; staging local nao).
 log "3/8 verificacao raw"
 N_LOCAL=$(find "$STAGING/brutos/$FONTE" -type f | wc -l)
-N_S3=$(aws s3 ls "s3://$BUCKET/raw/$FONTE/" --recursive | wc -l)
-[ "$N_LOCAL" -eq "$N_S3" ] || die "raw: $N_LOCAL locais x $N_S3 remotos"
-BYTES_LOCAL=$(find "$STAGING/brutos/$FONTE" -type f -printf '%s\n' | awk '{s+=$1} END {print s+0}')
-BYTES_S3=$(aws s3 ls "s3://$BUCKET/raw/$FONTE/" --recursive | awk '{s+=$3} END {print s+0}')
-[ "$BYTES_LOCAL" -eq "$BYTES_S3" ] || die "raw bytes: $BYTES_LOCAL locais x $BYTES_S3 remotos"
+ERROS=0
+BYTES_LOCAL=0
+while IFS= read -r f; do
+  rel="${f#$STAGING/brutos/}"
+  BYTES_LOCAL=$((BYTES_LOCAL + $(stat -c%s "$f")))
+  B_S3=$(aws s3 ls "s3://$BUCKET/raw/$rel" 2>/dev/null | awk '{print $3}')
+  [ "$B_S3" = "$(stat -c%s "$f")" ] || { ERROS=$((ERROS+1)); log "raw mismatch: $rel (local $(stat -c%s "$f") x s3 ${B_S3:-AUSENTE})"; }
+done < <(find "$STAGING/brutos/$FONTE" -type f)
+[ "$ERROS" -eq 0 ] || die "raw: $ERROS objeto(s) divergente(s) de $N_LOCAL"
 echo "raw ok: $N_LOCAL objetos, $BYTES_LOCAL bytes"
 
 # --- 4. TRANSFORM ------------------------------------------------------------

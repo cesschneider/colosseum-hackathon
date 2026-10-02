@@ -73,7 +73,11 @@ primeira_coluna <- function(nomes, candidatos, obrigatoria = TRUE) {
 ano_do_arquivo <- function(arquivo) as.integer(sub("^.*_([0-9]{4})[.]zip$", "\\1", basename(arquivo)))
 listar_zips <- function(fluxo) {
   arquivos <- list.files(dir_brutos(FONTE, fluxo), pattern = "_[0-9]{4}[.]zip$", full.names = TRUE)
-  arquivos[ano_do_arquivo(arquivos) >= ANO_INICIAL]
+  anos <- ano_do_arquivo(arquivos)
+  arquivos <- arquivos[anos >= ANO_INICIAL]
+  # Fatias: respeita PAINEL_ANO_FINAL para nao processar zips de outras fatias.
+  limite <- ano_final_efetivo()
+  arquivos[anos[anos >= ANO_INICIAL] <= limite]
 }
 
 achar_membro <- function(zip, padrao, descricao, obrigatorio = TRUE) {

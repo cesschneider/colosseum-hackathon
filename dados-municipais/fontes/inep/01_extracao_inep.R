@@ -102,6 +102,9 @@ descobrir_microdados <- function(fluxo, padrao_texto, ano_minimo, excluir_texto 
   # de revisao ("... 2019 (Atualizado em 8/3/2023)").
   links$ano <- extrair_ano(basename(links$href))
   links <- links[!is.na(links$ano) & links$ano >= ano_minimo, , drop = FALSE]
+  # Respeita PAINEL_ANO_FINAL (fatias de anos p/ nao estourar o disco).
+  limite <- ano_final_efetivo()
+  links <- links[links$ano <= limite, , drop = FALSE]
   if (!nrow(links)) stop("Nenhum ZIP encontrado para ", fluxo, " em ", pagina)
   data.frame(fluxo = fluxo, subfluxo = NA_character_, ano = links$ano, url = links$href,
              pagina = pagina, stringsAsFactors = FALSE)

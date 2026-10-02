@@ -74,6 +74,24 @@ ANO_INICIAL_GLOBAL <- local({
   if (nzchar(v)) as.integer(v) else NA_integer_
 })
 
+# Limite superior opcional da janela (ex.: PAINEL_ANO_FINAL=2012 para
+# processar fatias de anos sem estourar o disco). Vazio = ate o ano mais
+# recente publicado por cada fonte.
+ANO_FINAL_GLOBAL <- local({
+  v <- Sys.getenv("PAINEL_ANO_FINAL", unset = "")
+  if (nzchar(v)) as.integer(v) else NA_integer_
+})
+
+ano_final_efetivo <- function(ano_padrao_fonte = NULL) {
+  # Respeita PAINEL_ANO_FINAL sem avancar alem do ultimo ano conhecido da fonte.
+  if (is.na(ANO_FINAL_GLOBAL)) {
+    if (is.null(ano_padrao_fonte)) return(.Machine$integer.max)
+    return(as.integer(ano_padrao_fonte))
+  }
+  if (is.null(ano_padrao_fonte)) return(ANO_FINAL_GLOBAL)
+  min(as.integer(ano_padrao_fonte), ANO_FINAL_GLOBAL)
+}
+
 # Formato dos CSVs tratados: padrao internacional (virgula e ponto decimal),
 # pensado para consumo por aplicacoes web (JS/Python/DuckDB). Os brutos sao
 # preservados como vieram da fonte.

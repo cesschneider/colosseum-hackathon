@@ -25,7 +25,12 @@ URL_FTP_RAIS <- "ftp://ftp.mtps.gov.br/pdet/microdados/RAIS"
 URL_ESPELHO_RAIS <- "https://huggingface.co/datasets/selenelindsay/rais-caged-bronze/resolve/main/RAIS"
 USAR_ESPELHO <- ler_booleano_env("PAINEL_RAIS_ESPELHO", TRUE)
 ANO_INICIAL <- ano_inicial_efetivo(2010L)
-ANO_FINAL <- as.integer(Sys.getenv("PAINEL_RAIS_ANO_FINAL", unset = ANO_ATUAL))
+ANO_FINAL <- suppressWarnings({
+  v <- as.integer(Sys.getenv("PAINEL_RAIS_ANO_FINAL", unset = NA))
+  if (is.na(v)) ANO_ATUAL else v
+})
+# Fatias globais: PAINEL_ANO_FINAL tambem limita (minimo entre os dois).
+ANO_FINAL <- min(ANO_FINAL, ano_final_efetivo())
 TIMEOUT_RAIS <- max(TIMEOUT_PADRAO, 7200L)   # arquivos de ate 1,1 GB por FTP
 dir_saida <- dir_brutos(FONTE)
 

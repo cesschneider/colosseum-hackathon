@@ -232,6 +232,9 @@ processar_ano <- function(ano) {
 
 anos <- suppressWarnings(as.integer(basename(list.dirs(dir_bruto, recursive = FALSE))))
 anos <- sort(anos[!is.na(anos) & anos >= ANO_INICIAL])
+# Fatias: respeita PAINEL_RAIS_ANO_FINAL/PAINEL_ANO_FINAL para processar so a fatia baixada.
+limite <- ano_final_efetivo()
+anos <- anos[anos <= limite]
 if (!length(anos)) stop("Nenhuma pasta de ano em ", dir_bruto, ". Execute o script 01 antes.")
 longo <- rbindlist(lapply(anos, processar_ano), use.names = TRUE, fill = TRUE)
 if (!nrow(longo)) stop("Nenhum ano processado.")
